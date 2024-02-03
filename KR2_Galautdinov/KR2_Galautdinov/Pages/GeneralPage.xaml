@@ -1,0 +1,23 @@
+﻿<Page x:Class="KR2_Galautdinov.Pages.GeneralPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KR2_Galautdinov.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="GeneralPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0">
+            <Button Content="Employees" x:Name="EmployeesB" Click="EmployeesB_Click"/>
+            <Button Content="Tasks" x:Name="TasksB" Click="TasksB_Click"/>
+            <Button Content="Exit" x:Name="ExitB" Click="ExitB_Click"/>
+        </StackPanel>
+        <Frame x:Name="GeneralFrame" NavigationUIVisibility="Hidden" Grid.Column="1"/> 
+    </Grid>
+</Page>

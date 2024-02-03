@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="20926ab9885649cc8d3497c65a697755" Name="Diagram1" ZoomLevel="40">
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.Customer" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.CustomerTask" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.Departament" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.Employee" Width="1.5" PointX="6" PointY="4.5" />
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.Platform" Width="1.5" PointX="3.75" PointY="8.75" />
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.PlatformTask" Width="1.5" PointX="6" PointY="9.375" />
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.Role" Width="1.5" PointX="3.75" PointY="2.375" />
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.Task" Width="1.5" PointX="0.75" PointY="8.25" />
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.TaskActivity" Width="1.5" PointX="3" PointY="14.125" />
+        <EntityTypeShape EntityType="KR2_GalautdinovModel.EmployeeTask" Width="1.5" PointX="8.25" PointY="5.625" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_CustomerTask_Customer" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_CustomerTask_Departament" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_CustomerTask_Employee" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_CustomerTask_Task" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_Employee_Departament" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_TaskActivity_Departament" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_Employee_Platform" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_Employee_Role" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_EmployeeTask_Employee" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_PlatformTask_Platform" />
+        <AssociationConnector Association="KR2_GalautdinovModel.FK_PlatformTask_Task" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

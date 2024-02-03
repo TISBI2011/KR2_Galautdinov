@@ -1,0 +1,37 @@
+﻿<Page x:Class="KR2_Galautdinov.Pages.EmpListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KR2_Galautdinov.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EmpListPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="Black">
+            <Button Margin="0 0 10 0" Content="Exit" x:Name="ExitB" Click="ExitB_Click"/>
+            <Button Content="Add Employee" x:Name="AddEmployeeB" Click="AddEmployeeB_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="filtres"/>
+        </StackPanel>
+        <DataGrid IsReadOnly="True" x:Name="EmployeesDG" Grid.Row="2" AutoGenerateColumns="False">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="FullName" Binding="{Binding FullName}"/>
+                <DataGridTextColumn Header="Birthday" Binding="{Binding Birthday}"/>
+                <DataGridTextColumn Header="PhoneNumber" Binding="{Binding PhoneNumber}"/>
+                <DataGridTextColumn Header="Salary" Binding="{Binding Salary}"/>
+                <DataGridTextColumn Header="Departament" Binding="{Binding Departament.Title}"/>
+                <DataGridTextColumn Header="Passport" Binding="{Binding Passport}"/>
+                <DataGridTextColumn Header="Platform" Binding="{Binding Platform.Title}"/>
+                <DataGridTextColumn Header="Role" Binding="{Binding Role.Title}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

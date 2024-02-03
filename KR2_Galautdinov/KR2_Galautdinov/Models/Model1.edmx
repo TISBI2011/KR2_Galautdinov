@@ -1,0 +1,728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище KR2_GalautdinovModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="DepartamentId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="ReadyStatus" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departament">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Salary" Type="float" Nullable="false" />
+          <Property Name="DepartamentId" Type="int" Nullable="false" />
+          <Property Name="Passport" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlatformId" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "KR2_Galautdinov.dbo.EmployeeTask" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="EmployeeTask">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="TaskId" />
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Platform">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlatformTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="Platformid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstDate" Type="date" Nullable="false" />
+          <Property Name="LastDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartamentId" Type="int" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CustomerTask_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerTask" Type="Self.CustomerTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerTask">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerTask_Departament">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="CustomerTask" Type="Self.CustomerTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerTask">
+              <PropertyRef Name="DepartamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerTask_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="CustomerTask" Type="Self.CustomerTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerTask">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerTask_Task">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="CustomerTask" Type="Self.CustomerTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerTask">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Departament">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DepartamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Platform">
+          <End Role="Platform" Type="Self.Platform" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Platform">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PlatformId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeTask_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeTask" Type="Self.EmployeeTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeTask">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlatformTask_Platform">
+          <End Role="Platform" Type="Self.Platform" Multiplicity="1" />
+          <End Role="PlatformTask" Type="Self.PlatformTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Platform">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlatformTask">
+              <PropertyRef Name="Platformid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlatformTask_Task">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="PlatformTask" Type="Self.PlatformTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlatformTask">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskActivity_Departament">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="TaskActivity" Type="Self.TaskActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskActivity">
+              <PropertyRef Name="DepartamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище KR2_GalautdinovModelContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerTask" EntityType="Self.CustomerTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departament" EntityType="Self.Departament" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Platform" EntityType="Self.Platform" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlatformTask" EntityType="Self.PlatformTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskActivity" EntityType="Self.TaskActivity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeTask" EntityType="Self.EmployeeTask" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmployeeTask].[Id] AS [Id], 
+    [EmployeeTask].[TaskId] AS [TaskId], 
+    [EmployeeTask].[EmployeeId] AS [EmployeeId]
+    FROM [dbo].[EmployeeTask] AS [EmployeeTask]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_CustomerTask_Customer" Association="Self.FK_CustomerTask_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerTask" EntitySet="CustomerTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerTask_Departament" Association="Self.FK_CustomerTask_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="CustomerTask" EntitySet="CustomerTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerTask_Employee" Association="Self.FK_CustomerTask_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="CustomerTask" EntitySet="CustomerTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerTask_Task" Association="Self.FK_CustomerTask_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="CustomerTask" EntitySet="CustomerTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Departament" Association="Self.FK_Employee_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Platform" Association="Self.FK_Employee_Platform">
+            <End Role="Platform" EntitySet="Platform" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Role" Association="Self.FK_Employee_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeTask_Employee" Association="Self.FK_EmployeeTask_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeTask" EntitySet="EmployeeTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlatformTask_Platform" Association="Self.FK_PlatformTask_Platform">
+            <End Role="Platform" EntitySet="Platform" />
+            <End Role="PlatformTask" EntitySet="PlatformTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlatformTask_Task" Association="Self.FK_PlatformTask_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="PlatformTask" EntitySet="PlatformTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskActivity_Departament" Association="Self.FK_TaskActivity_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="TaskActivity" EntitySet="TaskActivity" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KR2_GalautdinovModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="KR2_GalautdinovEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer" EntityType="KR2_GalautdinovModel.Customer" />
+          <EntitySet Name="CustomerTask" EntityType="KR2_GalautdinovModel.CustomerTask" />
+          <EntitySet Name="Departament" EntityType="KR2_GalautdinovModel.Departament" />
+          <EntitySet Name="Employee" EntityType="KR2_GalautdinovModel.Employee" />
+          <EntitySet Name="Platform" EntityType="KR2_GalautdinovModel.Platform" />
+          <EntitySet Name="PlatformTask" EntityType="KR2_GalautdinovModel.PlatformTask" />
+          <EntitySet Name="Role" EntityType="KR2_GalautdinovModel.Role" />
+          <EntitySet Name="Task" EntityType="KR2_GalautdinovModel.Task" />
+          <EntitySet Name="TaskActivity" EntityType="KR2_GalautdinovModel.TaskActivity" />
+          <EntitySet Name="EmployeeTask" EntityType="KR2_GalautdinovModel.EmployeeTask" />
+          <AssociationSet Name="FK_CustomerTask_Customer" Association="KR2_GalautdinovModel.FK_CustomerTask_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerTask" EntitySet="CustomerTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerTask_Departament" Association="KR2_GalautdinovModel.FK_CustomerTask_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="CustomerTask" EntitySet="CustomerTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerTask_Employee" Association="KR2_GalautdinovModel.FK_CustomerTask_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="CustomerTask" EntitySet="CustomerTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerTask_Task" Association="KR2_GalautdinovModel.FK_CustomerTask_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="CustomerTask" EntitySet="CustomerTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Departament" Association="KR2_GalautdinovModel.FK_Employee_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskActivity_Departament" Association="KR2_GalautdinovModel.FK_TaskActivity_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="TaskActivity" EntitySet="TaskActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Platform" Association="KR2_GalautdinovModel.FK_Employee_Platform">
+            <End Role="Platform" EntitySet="Platform" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Role" Association="KR2_GalautdinovModel.FK_Employee_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeTask_Employee" Association="KR2_GalautdinovModel.FK_EmployeeTask_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeTask" EntitySet="EmployeeTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlatformTask_Platform" Association="KR2_GalautdinovModel.FK_PlatformTask_Platform">
+            <End Role="Platform" EntitySet="Platform" />
+            <End Role="PlatformTask" EntitySet="PlatformTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlatformTask_Task" Association="KR2_GalautdinovModel.FK_PlatformTask_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="PlatformTask" EntitySet="PlatformTask" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="CustomerTask" Relationship="KR2_GalautdinovModel.FK_CustomerTask_Customer" FromRole="Customer" ToRole="CustomerTask" />
+        </EntityType>
+        <EntityType Name="CustomerTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="DepartamentId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="ReadyStatus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="KR2_GalautdinovModel.FK_CustomerTask_Customer" FromRole="CustomerTask" ToRole="Customer" />
+          <NavigationProperty Name="Departament" Relationship="KR2_GalautdinovModel.FK_CustomerTask_Departament" FromRole="CustomerTask" ToRole="Departament" />
+          <NavigationProperty Name="Employee" Relationship="KR2_GalautdinovModel.FK_CustomerTask_Employee" FromRole="CustomerTask" ToRole="Employee" />
+          <NavigationProperty Name="Task" Relationship="KR2_GalautdinovModel.FK_CustomerTask_Task" FromRole="CustomerTask" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Departament">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CustomerTask" Relationship="KR2_GalautdinovModel.FK_CustomerTask_Departament" FromRole="Departament" ToRole="CustomerTask" />
+          <NavigationProperty Name="Employee" Relationship="KR2_GalautdinovModel.FK_Employee_Departament" FromRole="Departament" ToRole="Employee" />
+          <NavigationProperty Name="TaskActivity" Relationship="KR2_GalautdinovModel.FK_TaskActivity_Departament" FromRole="Departament" ToRole="TaskActivity" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Salary" Type="Double" Nullable="false" />
+          <Property Name="DepartamentId" Type="Int32" Nullable="false" />
+          <Property Name="Passport" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlatformId" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="CustomerTask" Relationship="KR2_GalautdinovModel.FK_CustomerTask_Employee" FromRole="Employee" ToRole="CustomerTask" />
+          <NavigationProperty Name="Departament" Relationship="KR2_GalautdinovModel.FK_Employee_Departament" FromRole="Employee" ToRole="Departament" />
+          <NavigationProperty Name="Platform" Relationship="KR2_GalautdinovModel.FK_Employee_Platform" FromRole="Employee" ToRole="Platform" />
+          <NavigationProperty Name="Role" Relationship="KR2_GalautdinovModel.FK_Employee_Role" FromRole="Employee" ToRole="Role" />
+          <NavigationProperty Name="EmployeeTask" Relationship="KR2_GalautdinovModel.FK_EmployeeTask_Employee" FromRole="Employee" ToRole="EmployeeTask" />
+        </EntityType>
+        <EntityType Name="Platform">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="KR2_GalautdinovModel.FK_Employee_Platform" FromRole="Platform" ToRole="Employee" />
+          <NavigationProperty Name="PlatformTask" Relationship="KR2_GalautdinovModel.FK_PlatformTask_Platform" FromRole="Platform" ToRole="PlatformTask" />
+        </EntityType>
+        <EntityType Name="PlatformTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="Platformid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Platform" Relationship="KR2_GalautdinovModel.FK_PlatformTask_Platform" FromRole="PlatformTask" ToRole="Platform" />
+          <NavigationProperty Name="Task" Relationship="KR2_GalautdinovModel.FK_PlatformTask_Task" FromRole="PlatformTask" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="KR2_GalautdinovModel.FK_Employee_Role" FromRole="Role" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LastDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="CustomerTask" Relationship="KR2_GalautdinovModel.FK_CustomerTask_Task" FromRole="Task" ToRole="CustomerTask" />
+          <NavigationProperty Name="PlatformTask" Relationship="KR2_GalautdinovModel.FK_PlatformTask_Task" FromRole="Task" ToRole="PlatformTask" />
+        </EntityType>
+        <EntityType Name="TaskActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartamentId" Type="Int32" Nullable="false" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departament" Relationship="KR2_GalautdinovModel.FK_TaskActivity_Departament" FromRole="TaskActivity" ToRole="Departament" />
+        </EntityType>
+        <EntityType Name="EmployeeTask">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="TaskId" />
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="KR2_GalautdinovModel.FK_EmployeeTask_Employee" FromRole="EmployeeTask" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_CustomerTask_Customer">
+          <End Type="KR2_GalautdinovModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.CustomerTask" Role="CustomerTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerTask">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerTask_Departament">
+          <End Type="KR2_GalautdinovModel.Departament" Role="Departament" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.CustomerTask" Role="CustomerTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerTask">
+              <PropertyRef Name="DepartamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerTask_Employee">
+          <End Type="KR2_GalautdinovModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.CustomerTask" Role="CustomerTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerTask">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerTask_Task">
+          <End Type="KR2_GalautdinovModel.Task" Role="Task" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.CustomerTask" Role="CustomerTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerTask">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Departament">
+          <End Type="KR2_GalautdinovModel.Departament" Role="Departament" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DepartamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskActivity_Departament">
+          <End Type="KR2_GalautdinovModel.Departament" Role="Departament" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.TaskActivity" Role="TaskActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskActivity">
+              <PropertyRef Name="DepartamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Platform">
+          <End Type="KR2_GalautdinovModel.Platform" Role="Platform" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Platform">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PlatformId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Role">
+          <End Type="KR2_GalautdinovModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="KR2_GalautdinovModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeTask_Employee">
+          <End Type="KR2_GalautdinovModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.EmployeeTask" Role="EmployeeTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeTask">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlatformTask_Platform">
+          <End Type="KR2_GalautdinovModel.Platform" Role="Platform" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.PlatformTask" Role="PlatformTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Platform">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlatformTask">
+              <PropertyRef Name="Platformid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlatformTask_Task">
+          <End Type="KR2_GalautdinovModel.Task" Role="Task" Multiplicity="1" />
+          <End Type="KR2_GalautdinovModel.PlatformTask" Role="PlatformTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlatformTask">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KR2_GalautdinovModelContainer" CdmEntityContainer="KR2_GalautdinovEntities">
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerTask">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.CustomerTask">
+              <MappingFragment StoreEntitySet="CustomerTask">
+                <ScalarProperty Name="ReadyStatus" ColumnName="ReadyStatus" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="DepartamentId" ColumnName="DepartamentId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departament">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.Departament">
+              <MappingFragment StoreEntitySet="Departament">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="PlatformId" ColumnName="PlatformId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="DepartamentId" ColumnName="DepartamentId" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Platform">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.Platform">
+              <MappingFragment StoreEntitySet="Platform">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlatformTask">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.PlatformTask">
+              <MappingFragment StoreEntitySet="PlatformTask">
+                <ScalarProperty Name="Platformid" ColumnName="Platformid" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Task">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="LastDate" ColumnName="LastDate" />
+                <ScalarProperty Name="FirstDate" ColumnName="FirstDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskActivity">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.TaskActivity">
+              <MappingFragment StoreEntitySet="TaskActivity">
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="DepartamentId" ColumnName="DepartamentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeTask">
+            <EntityTypeMapping TypeName="KR2_GalautdinovModel.EmployeeTask">
+              <MappingFragment StoreEntitySet="EmployeeTask">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
